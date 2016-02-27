@@ -1,0 +1,65 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+submenu "----------仅用于LEGACY模式下-----FOR LEGACY MODE ONLY----------" {
+
+#menuentry "grub4dos menu" {
+#    set root="hd0,msdos1"
+#    linux /grub.exe --config-file=/menu.lst
+#}
+
+menuentry "WePE工具箱" {
+        set cfgfile="find --set-root /WEPE/WEPE64.WIM;chainloader /WEPE/WEPE64"
+                set root="hd0,msdos1"
+                    linux /grub.exe --config-file=$cfgfile
+}
+
+menuentry "安装Windows7 64位简体中文旗舰版(Win7.iso)" {
+        set root="hd0,msdos1"
+                set isoname="Win7.iso"
+                    set cfgfile="find --set-root /iso/$isoname;map /iso/$isoname (0xff) || map --mem /iso/$isoname (0xff);map --hook;chainloader (0xff)"
+                        linux /grub.exe --config-file=$cfgfile
+}
+
+menuentry "安装Windows7 64位教育版(Win7_edu.iso)学校提供" {
+        set root="hd0,msdos1"
+                set isoname="Win7_edu.iso"
+                    set cfgfile="find --set-root /iso/$isoname;map /iso/$isoname (0xff) || map --mem /iso/$isoname (0xff);map --hook;chainloader (0xff)"
+                        linux /grub.exe --config-file=$cfgfile
+}
+}
+submenu "----------仅用于UEFI模式-----FOR UEFI MODE ONLY----------" {
+
+menuentry "WePE工具箱" {
+#set root="hd0,msdos2"
+        search --set -f /WEPE/WEPE64.WIM
+                chainloader /EFI/BOOT/bootx64.efi
+}
+
+menuentry "Windows 10 TH2 64bit家庭版/专业版" {
+        set root="hd0,msdos3"
+                chainloader /efi/boot/bootx64.efi
+}
+}
+submenu "----------主要Linux发行版可在UEFI或BIOS两种引导下安装----------" {
+
+menuentry "安装Ubuntu 14.04 LTS 64bit" {
+        set isoname="ubuntu-14.04.3-desktop-amd64.iso"
+                search --set -f /iso/$isoname
+                    loopback loop /iso/$isoname
+                        linux (loop)/casper/vmlinuz.efi boot=casper iso-scan/filename=/iso/$isoname locale=zh_CN.UTF-8 
+                            initrd (loop)/casper/initrd.lz
+}
+
+menuentry "安装Arch Linux 64bit" {
+        set isoname="archlinux-2015.10.01-dual.iso"
+                search --set -f /iso/$isoname
+                    loopback loop /iso/$isoname
+                        linux (loop)/arch/boot/x86_64/vmlinuz archisobasedir=arch archisolabel=Data
+                            initrd  (loop)/arch/boot/intel_ucode.img
+                                initrd (loop)/arch/boot/x86_64/archiso.img
+#                    chainloader (loop)/isolinux/isolinux.bin                                    
+}
+}
