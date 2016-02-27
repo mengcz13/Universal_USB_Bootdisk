@@ -57,10 +57,10 @@ ISO文件解压后置于第二分区根目录.
 ### Win10
 ISO文件解压后置于第三分区根目录. 此分区同样可放置需要UEFI引导的其他Windows 安装盘文件.
 
-## Win7以及其他需要BIOS引导的Windows安装盘(仅支持BIOS引导)
+### Win7以及其他需要BIOS引导的Windows安装盘(仅支持BIOS引导)
 将ISO文件**直接**置于第四分区iso文件夹内.
 
-## Linux各发行版
+### Linux各发行版
 将ISO文件**直接**置于第四分区iso文件夹内.
 
 ## 背景图片
