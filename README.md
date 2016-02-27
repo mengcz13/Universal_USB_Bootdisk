@@ -43,6 +43,7 @@ GRUB2已经采用grub-mkconfig程序自动生成配置文件. 该程序用到`/e
 sudo grub-mkconfig -o /path/you/want/grub.cfg
 ```
 * 使用生成的文件替换U盘首分区`/boot/grub/grub.cfg`(不存在则创建)
+* 删除经过替换的文件, 从备份恢复.
 
 ### 解包, 拷贝镜像文件
 见"文件放置说明".
